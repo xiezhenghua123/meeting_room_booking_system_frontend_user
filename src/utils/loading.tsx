@@ -13,11 +13,9 @@ export class Loading {
     if (this.requestCount === 0) {
       const loading = document.createElement('div')
       loading.setAttribute('id', 'loading')
-      loading.className =
-        'fixed top-0 left-0 w-full h-full bg-black bg-opacity-10 z-50 flex justify-center items-center'
       document.body.appendChild(loading)
       const render = ReactDOM.createRoot(loading)
-      render.render(<Spin tip="加载中..." size="large" />)
+      render.render(<Spin tip="加载中..." size="large" fullscreen />)
     }
     this.requestCount++
   }

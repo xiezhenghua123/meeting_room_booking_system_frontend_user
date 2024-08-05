@@ -1,28 +1,61 @@
-import { RouteObject } from 'react-router-dom'
-import Home from './pages/home/Home'
+import {
+  createBrowserRouter,
+  Navigate,
+  RouteObject,
+  RouterProvider
+} from 'react-router-dom'
+import { lazy } from 'react'
 import ErrorPage from './pages/error-page/ErrorPage'
-import Login from './pages/login/Login'
-import Register from './pages/register/Register'
-import UpdatePassword from './pages/update-password/UpdatePassword'
+import loginAuthLoader from './loader/LoginAuth.loader'
+import loginLoader from './pages/login/login.loader'
 
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: <Home />,
-    errorElement: <ErrorPage />
+    element: <Navigate to="/index/home" />
   },
   {
+    path: 'index',
+    Component: lazy(() => import('@/pages/layout/Index')),
+    loader: loginAuthLoader,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        // path: 'index', //不能加这个path，否则会导致无法匹配到子路由
+        index: true,
+        element: <Navigate to="/index/home" />
+      },
+      {
+        path: 'home',
+        Component: lazy(() => import('@/pages/home/Home'))
+      },
+      {
+        path: 'update-user-info',
+        Component: lazy(() => import('@/pages/update-user-info/UpdateUserInfo'))
+      }
+    ]
+  },
+  // {
+  //  path: 'home',
+  //  Component: lazy(() => import('@/pages/home/Home'))
+  // },
+  {
     path: 'login',
-    element: <Login />
+    loader: loginLoader,
+    Component: lazy(() => import('@/pages/login/Login'))
   },
   {
     path: 'register',
-    element: <Register />
+    Component: lazy(() => import('@/pages/register/Register'))
   },
   {
     path: 'update-password',
-    element: <UpdatePassword />
+    loader: loginAuthLoader,
+    Component: lazy(() => import('@/pages/update-password/UpdatePassword'))
   }
 ]
 
-export default routes
+export const history: ReturnType<typeof createBrowserRouter> =
+  createBrowserRouter(routes)
+
+export const router = <RouterProvider router={history} />

@@ -3,12 +3,13 @@ import { Button, Col, Form, Input, message, Row, FormProps } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { register, registerCaptcha } from '../../api'
 import { useCallback } from 'react'
+import SendCaptcha from '../../components/send-captcha/SendCpatcha';
 
 type RegisterFiledType = {
   username: string
   nickName: string
   password: string
-  confirmPassword: string
+  confirmPassword: string,
   email: string
   captcha: string
 }
@@ -38,7 +39,7 @@ const Register = () => {
     const email = form.getFieldValue('email')
     if (!email) {
       message.error('请输入邮箱')
-      return
+      return Promise.reject()
     }
     await registerCaptcha({
       address: email
@@ -131,9 +132,7 @@ const Register = () => {
               <Input placeholder="验证码" />
             </Col>
             <Col span={6}>
-              <Button className="w-full" type="primary" onClick={sendCaptcha}>
-                发送验证码
-              </Button>
+              <SendCaptcha sendCaptcha={sendCaptcha} />
             </Col>
           </Row>
         </Form.Item>

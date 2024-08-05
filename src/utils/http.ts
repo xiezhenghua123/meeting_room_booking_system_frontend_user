@@ -7,8 +7,9 @@ import type {
 } from 'axios'
 import { Loading } from './loading'
 import { message } from 'antd'
+import { history } from '@/route.config'
 
-type Result<T> = {
+export type Result<T> = {
   code: number
   data: T
   message: string
@@ -44,6 +45,11 @@ export class Http {
     })
     this.instance.interceptors.request.use(
       (config: InternalRequestConfig) => {
+        const accessToken = localStorage.getItem('accessToken')
+        if (accessToken) {
+          config.headers.Authorization = `Bearer ${accessToken}`
+        }
+
         const loading = config.loading
         if (loading) {
           loadingInstance.showLoading()
@@ -80,12 +86,17 @@ export class Http {
         switch (code) {
           case 401:
             message.error(msg || '登录过期，请重新登录')
+            history.navigate('/login')
             break
           case 403:
-            message.error(msg || '没有权限')
+            message.error(msg || '登录失效，请重新登录')
+            history.navigate('/login')
             break
           case 404:
             message.error(msg || '请求的资源不存在')
+            break
+          case 500:
+            message.error(msg || '服务器错误')
             break
           default:
             message.error(msg || '请求失败')
@@ -109,7 +120,7 @@ export class Http {
   }
 
   get(url: string, config?: RequestConfig) {
-    return <T = unknown, D = unknown>(params: D) => {
+    return <T = unknown, D = unknown>(params?: D) => {
       return this.requestBase<T, D>({
         url,
         method: 'get',
@@ -147,6 +158,20 @@ export class Http {
         url,
         method: 'delete',
         data,
+        ...config
+      })
+    }
+  }
+
+  upload(url: string, config?: RequestConfig) {
+    return <T = unknown, D = unknown>(data?: D) => {
+      return this.requestBase<T, D>({
+        url,
+        method: 'post',
+        data,
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
         ...config
       })
     }

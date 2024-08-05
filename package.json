@@ -10,8 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.4.0",
+    "@types/node": "^20.14.12",
+    "@unocss/reset": "^0.61.5",
+    "@vitejs/plugin-basic-ssl": "^1.1.0",
     "antd": "^5.19.3",
     "axios": "^1.7.2",
+    "rc-upload": "^4.6.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.25.1"
@@ -27,6 +32,7 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
+    "sass": "^1.77.8",
     "typescript": "^5.2.2",
     "unocss": "^0.61.5",
     "vite": "^5.3.4"

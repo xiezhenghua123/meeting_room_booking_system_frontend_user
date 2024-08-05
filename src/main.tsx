@@ -1,11 +1,9 @@
 import ReactDOM from 'react-dom/client'
 // import './index.css'
 import 'virtual:uno.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import routes from './route.config.tsx'
-
-const router = createBrowserRouter(routes)
+import '@unocss/reset/normalize.css'
+import { router } from './route.config'
 
 const root = ReactDOM.createRoot(document.getElementById('root')!)
 
-root.render(<RouterProvider router={router} />)
+root.render(router)

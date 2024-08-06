@@ -32,6 +32,22 @@ const routes: RouteObject[] = [
       {
         path: 'update-user-info',
         Component: lazy(() => import('@/pages/update-user-info/UpdateUserInfo'))
+      },
+      // 管理员相关路由
+      {
+        path: 'admin',
+        Component: lazy(() => import('@/pages/menu/Menu')),
+        children: [
+          {
+            // path: 'user-list',
+            index: true,
+            element: <Navigate to="/index/admin/user-list" />
+          },
+          {
+            path: 'user-list',
+            Component: lazy(() => import('@/pages/user-manager/UserManager'))
+          }
+        ]
       }
     ]
   },

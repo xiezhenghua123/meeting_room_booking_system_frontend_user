@@ -1,7 +1,6 @@
 import { login } from '@/api'
 import { Button, Form, Input } from 'antd'
 import type { FormProps } from 'antd'
-import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 type FiledType = {
@@ -25,21 +24,13 @@ const Login = () => {
     localStorage.setItem('accessToken', data.accessToken)
     localStorage.setItem('refreshToken', data.refreshToken)
     localStorage.setItem('userInfo', JSON.stringify(data.userInfo))
-    location('/')
+    const isAdmin = data.userInfo.isAdmin
+    if (isAdmin) {
+      location('/index/admin')
+    } else {
+      location('/')
+    }
   }
-  const javascriptCallback = (token: string) => {
-    console.log(`Challenge Success ${token}`)
-  }
-  // useEffect(() => {
-  //   turnstile.ready(function () {
-  //     turnstile.render('#cf-turnstile', {
-  //       sitekey: '0x4AAAAAAAgG7ynVm4bJ2nu1',
-  //       callback: function (token) {
-  //         console.log(`Challenge Success ${token}`)
-  //       }
-  //     })
-  //   })
-  // }, [])
   return (
     <div className="flex flex-items-center flex-justify-center h-screen flex-col">
       <h1>会议室预订系统</h1>

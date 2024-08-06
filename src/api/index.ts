@@ -26,3 +26,6 @@ export const uploadImage = httpInstance.upload('/user/upload');
 
 // 检查是否登录
 export const checkLogin = httpInstance.get('/user/check-login', { loading: true });
+
+// 退出登录
+export const logout = httpInstance.get('/user/logout', { loading: true, successMessage: '退出成功' });

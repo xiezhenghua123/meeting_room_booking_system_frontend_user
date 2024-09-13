@@ -17,21 +17,22 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "pnpm run lint",
-      "git add *",
-      "git commit -m 'chore: lint'"
+      "pnpm run lint"
     ]
   },
   "dependencies": {
+    "@ant-design/cssinjs": "^1.21.1",
     "@ant-design/icons": "^5.4.0",
     "@types/node": "^20.14.12",
     "@unocss/reset": "^0.61.5",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
     "antd": "^5.19.3",
     "axios": "^1.7.2",
+    "i18next": "^23.15.1",
     "rc-upload": "^4.6.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-i18next": "^15.0.1",
     "react-router-dom": "^6.25.1"
   },
   "devDependencies": {

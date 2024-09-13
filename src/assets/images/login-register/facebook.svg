@@ -1,0 +1,12 @@
+<svg width="36" height="35" viewBox="0 0 36 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Facebook">
+<ellipse id="bg" cx="17.8" cy="16.2069" rx="15.225" ry="15.225" fill="url(#paint0_linear_45_50)"/>
+<path id="f" d="M23.4698 22.2556L24.1461 17.9584H19.9153V15.171C19.9153 13.9951 20.5052 12.8482 22.4002 12.8482H24.3249V9.18977C24.3249 9.18977 22.5789 8.89941 20.9104 8.89941C17.4245 8.89941 15.1482 10.958 15.1482 14.6832V17.9584H11.2749V22.2556H15.1482V32.6444C15.9258 32.7635 16.7214 32.8244 17.5318 32.8244C18.3422 32.8244 19.1377 32.7635 19.9153 32.6444V22.2556H23.4698Z" fill="#F7F7F7"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_45_50" x1="17.8" y1="0.981935" x2="17.8" y2="31.3416" gradientUnits="userSpaceOnUse">
+<stop stop-color="#18ACFE"/>
+<stop offset="1" stop-color="#0163E0"/>
+</linearGradient>
+</defs>
+</svg>

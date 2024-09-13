@@ -56,7 +56,7 @@ const UploaderUserInfo = () => {
       }
     }
     getUserInfoData()
-  }, [])
+  }, [form])
   const [fileList, setFileList] = useState<UploadFile[]>([])
   const [loading, setLoading] = useState<boolean>(false)
 

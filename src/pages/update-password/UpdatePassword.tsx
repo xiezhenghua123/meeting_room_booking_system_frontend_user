@@ -40,7 +40,7 @@ const UpdatePassword = () => {
     const email = form.getFieldValue('email')
     if (!email) {
       message.error('请输入邮箱')
-      return
+      return Promise.reject()
     }
     await updatePasswordCaptcha({
       email

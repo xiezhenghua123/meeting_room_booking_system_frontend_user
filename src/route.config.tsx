@@ -4,7 +4,7 @@ import {
   RouteObject,
   RouterProvider
 } from 'react-router-dom'
-import { lazy } from 'react'
+import { lazy, Suspense } from 'react'
 import ErrorPage from './pages/error-page/ErrorPage'
 import loginAuthLoader from './loader/LoginAuth.loader'
 import loginLoader from './pages/login/login.loader'
@@ -39,7 +39,6 @@ const routes: RouteObject[] = [
         Component: lazy(() => import('@/pages/menu/Menu')),
         children: [
           {
-            // path: 'user-list',
             index: true,
             element: <Navigate to="/index/admin/user-list" />
           },
@@ -51,27 +50,36 @@ const routes: RouteObject[] = [
       }
     ]
   },
-  // {
-  //  path: 'home',
-  //  Component: lazy(() => import('@/pages/home/Home'))
-  // },
   {
-    path: 'login',
-    loader: loginLoader,
-    Component: lazy(() => import('@/pages/login/Login'))
-  },
-  {
-    path: 'register',
-    Component: lazy(() => import('@/pages/register/Register'))
-  },
-  {
-    path: 'update-password',
-    loader: loginAuthLoader,
-    Component: lazy(() => import('@/pages/update-password/UpdatePassword'))
+    path: '/no-check',
+    Component: lazy(() => import('@/pages/layout/no-check')),
+    children: [
+      {
+        index: true,
+        element: <Navigate to="/no-check/login" />
+      },
+      {
+        path: 'login',
+        Component: lazy(() => import('@/pages/login/Login')),
+        loader: loginLoader
+      },
+      {
+        path: 'update-password',
+        Component: lazy(() => import('@/pages/update-password/UpdatePassword'))
+      },
+      {
+        path: 'register',
+        Component: lazy(() => import('@/pages/register/Register'))
+      }
+    ]
   }
 ]
 
 export const history: ReturnType<typeof createBrowserRouter> =
   createBrowserRouter(routes)
 
-export const router = <RouterProvider router={history} />
+export const router = (
+  <Suspense>
+    <RouterProvider router={history} />
+  </Suspense>
+)

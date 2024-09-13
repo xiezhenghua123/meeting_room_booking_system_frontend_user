@@ -1,0 +1,19 @@
+{
+  "welcome": "欢迎",
+  "websiteName": "会议室预定系统",
+  "login": "登录",
+  "register": "注册",
+  "noAccount": "没有账号？",
+  "haveAccount": "已有账号？",
+  "usernameLabel": "输入用户名或者邮箱",
+  "passwordLabel": "输入密码",
+  "usernamePlaceholder": "用户名或邮箱",
+  "passwordPlaceholder": "密码",
+  "forgotPassword": "忘记密码",
+  "or": "或",
+  "loginWithGoogle": "使用谷歌账号登录",
+  "loginWithFacebook": "使用Facebook账号登录",
+  "loginWithTwitter": "使用Twitter账号登录",
+  "inputRequired": "请输入{{field}}",
+  "language": "语言"
+}

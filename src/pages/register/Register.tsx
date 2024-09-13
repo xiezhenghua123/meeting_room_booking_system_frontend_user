@@ -33,7 +33,7 @@ const Register = () => {
       email,
       captcha
     })
-    navigate('/login')
+    navigate('/no-check/login')
   }
   const sendCaptcha = useCallback(async () => {
     const email = form.getFieldValue('email')
@@ -138,7 +138,7 @@ const Register = () => {
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 4, span: 20 }}>
           <div className="flex w-full flex-justify-end">
-            <Link to="/login">已有账号？去登陆</Link>
+            <Link to="/no-check/login">已有账号？去登陆</Link>
           </div>
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 4, span: 20 }}>

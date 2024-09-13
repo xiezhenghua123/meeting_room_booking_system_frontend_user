@@ -17,7 +17,8 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "pnpm run lint"
+      "pnpm run lint",
+      "git add *"
     ]
   },
   "dependencies": {

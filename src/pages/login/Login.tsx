@@ -114,9 +114,9 @@ const Login = () => {
           <span className="text-1.5rem">{t('welcome')}</span>
           <div className="text-1.2rem">
             <span className="text-[#8D8D8D]">{t('noAccount')}</span>
-            <div className="text-[#B87514] mt-0.5rem cursor-pointer">
+            <Link className="text-[#B87514] mt-0.5rem cursor-pointer block no-underline" to="/no-check/register">
               {t('register')}
-            </div>
+            </Link>
           </div>
         </div>
         <div className="text-4.125rem font-500 mt-0.5rem">{t('login')}</div>

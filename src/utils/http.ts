@@ -36,18 +36,26 @@ type refreshTokenType = {
   accessToken: string
   refreshToken: string
 }
-const refreshTokenInstance = async () => {
+
+// 双token刷新
+export const refreshTokenInstance = async () => {
   const refreshTokenString = localStorage.getItem('refreshToken')
-  if (refreshTokenString) {
-    const { data } = await refreshToken<
-      refreshTokenType,
-      { refresh_token: string }
-    >({
-      refresh_token: refreshTokenString
-    })
-    localStorage.setItem('accessToken', data.accessToken)
-    localStorage.setItem('refreshToken', data.refreshToken)
-  }
+  const { data } = await refreshToken<
+    refreshTokenType,
+    { refresh_token: string | null }
+  >({
+    refresh_token: refreshTokenString
+  })
+  localStorage.setItem('accessToken', data.accessToken)
+  localStorage.setItem('refreshToken', data.refreshToken)
+}
+
+// 去除登录状态
+export const removeLoginStatus = () => {
+  localStorage.removeItem('accessToken')
+  localStorage.removeItem('refreshToken')
+  localStorage.removeItem('userInfo')
+  localStorage.removeItem('isLogin')
 }
 
 export class Http {
@@ -63,7 +71,7 @@ export class Http {
       ...config
     })
     this.instance.interceptors.request.use(
-      (config: InternalRequestConfig) => {
+      async (config: InternalRequestConfig) => {
         const accessToken = localStorage.getItem('accessToken')
         if (accessToken) {
           config.headers.Authorization = `Bearer ${accessToken}`
@@ -86,7 +94,7 @@ export class Http {
       }
     )
     this.instance.interceptors.response.use(
-      (response: ResponseConfig) => {
+      async (response: ResponseConfig) => {
         const { config } = response
         const loading = config.loading
         if (loading) {
@@ -104,17 +112,20 @@ export class Http {
         try {
           const { code, message: msg } = error.response.data
           switch (code) {
-            // TODO: 刷新token
+            // 刷新token
             case 401:
-              if (!error.config.url.includes('/user/refresh-token')) {
-                await refreshTokenInstance()
-                return this.instance.request(error.config)
+              if (!error.config.url.includes('/user/refresh')) {
+                return refreshTokenInstance().then(() => {
+                  return this.instance.request(error.config)
+                })
               }
               message.error(msg || '登录过期，请重新登录')
+              removeLoginStatus()
               history.navigate('/no-check/login')
               break
             case 403:
               message.error(msg || '登录失效，请重新登录')
+              removeLoginStatus()
               history.navigate('/no-check/login')
               break
             case 404:

@@ -11,6 +11,7 @@ const HomeLayOut = () => {
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
     localStorage.removeItem('userInfo')
+    localStorage.removeItem('isLogin')
     navigate('/no-check/login')
   }
   return (

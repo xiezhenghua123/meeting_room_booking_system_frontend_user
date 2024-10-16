@@ -58,6 +58,8 @@ const Login = () => {
     localStorage.setItem('accessToken', data.accessToken)
     localStorage.setItem('refreshToken', data.refreshToken)
     localStorage.setItem('userInfo', JSON.stringify(data.userInfo))
+    // 设置登录状态
+    localStorage.setItem('isLogin', 'true')
     const isAdmin = data.userInfo.isAdmin
     if (isAdmin) {
       location('/index/admin')

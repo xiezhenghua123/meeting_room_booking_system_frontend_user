@@ -1,12 +1,12 @@
-import { checkLogin } from '@/api'
+import { removeLoginStatus } from '@/utils/http'
 import { LoaderFunction, redirect } from 'react-router-dom'
 
 const loginLoader: LoaderFunction = async () => {
-  const data = await checkLogin<boolean>()
-  if (data.data) {
+  if(localStorage.getItem('isLogin') === 'true') {
     return redirect('/')
   }
-  return Promise.resolve(data)
+  removeLoginStatus()
+  return Promise.resolve(null)
 }
 
 export default loginLoader

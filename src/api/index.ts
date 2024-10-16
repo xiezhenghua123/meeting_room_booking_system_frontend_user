@@ -29,3 +29,6 @@ export const checkLogin = httpInstance.get('/user/check-login', { loading: true 
 
 // 退出登录
 export const logout = httpInstance.get('/user/logout', { loading: true, successMessage: '退出成功' });
+
+// 刷新token
+export const refreshToken = httpInstance.get('/user/refresh');

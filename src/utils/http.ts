@@ -8,6 +8,7 @@ import type {
 import { Loading } from './loading'
 import { message } from 'antd'
 import { history } from '@/route.config'
+import { refreshToken } from '../api/index'
 
 export type Result<T> = {
   code: number
@@ -30,6 +31,24 @@ type ResponseConfig = AxiosResponse & {
 type RequestConfig<D = any> = AxiosRequestConfig<D> & OtherConfig
 
 const loadingInstance = new Loading()
+
+type refreshTokenType = {
+  accessToken: string
+  refreshToken: string
+}
+const refreshTokenInstance = async () => {
+  const refreshTokenString = localStorage.getItem('refreshToken')
+  if (refreshTokenString) {
+    const { data } = await refreshToken<
+      refreshTokenType,
+      { refresh_token: string }
+    >({
+      refresh_token: refreshTokenString
+    })
+    localStorage.setItem('accessToken', data.accessToken)
+    localStorage.setItem('refreshToken', data.refreshToken)
+  }
+}
 
 export class Http {
   instance: AxiosInstance
@@ -82,26 +101,36 @@ export class Http {
         if (error.config.loading) {
           loadingInstance.hideLoading()
         }
-        const { code, message: msg } = error.response.data
-        switch (code) {
-          case 401:
-            message.error(msg || '登录过期，请重新登录')
-            history.navigate('/login')
-            break
-          case 403:
-            message.error(msg || '登录失效，请重新登录')
-            history.navigate('/login')
-            break
-          case 404:
-            message.error(msg || '请求的资源不存在')
-            break
-          case 500:
-            message.error(msg || '服务器错误')
-            break
-          default:
-            message.error(msg || '请求失败')
+        try {
+          const { code, message: msg } = error.response.data
+          switch (code) {
+            // TODO: 刷新token
+            case 401:
+              if (!error.config.url.includes('/user/refresh-token')) {
+                await refreshTokenInstance()
+                return this.instance.request(error.config)
+              }
+              message.error(msg || '登录过期，请重新登录')
+              history.navigate('/no-check/login')
+              break
+            case 403:
+              message.error(msg || '登录失效，请重新登录')
+              history.navigate('/no-check/login')
+              break
+            case 404:
+              message.error(msg || '请求的资源不存在')
+              break
+            case 500:
+              message.error(msg || '服务器错误')
+              break
+            default:
+              message.error(msg || '请求失败')
+          }
+          return Promise.reject(error)
+        } catch (e) {
+          message.error('请求失败')
+          return Promise.reject(error)
         }
-        return Promise.reject(error)
       }
     )
   }

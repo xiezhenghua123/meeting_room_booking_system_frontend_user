@@ -1,5 +1,5 @@
 import { login } from '@/api'
-import { Button, Form, Input, Select } from 'antd'
+import { Button, Form, Input, message, Select } from 'antd'
 import type { FormProps } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -26,8 +26,12 @@ type LoginResponse = {
 const googleLogin = () => {
   window.location.href = `${import.meta.env.VITE_BASE_URL}user/google-login`
 }
-const facebookLogin = () => {}
-const twitterLogin = () => {}
+const facebookLogin = () => {
+  message.info('暂未开放')
+}
+const twitterLogin = () => {
+  message.info('暂未开放')
+}
 const initThirdPartyLoginArr = [
  {
    icon: googleIcon,

@@ -23,7 +23,9 @@ type LoginResponse = {
   refreshToken: string
 }
 
-const googleLogin = () => {}
+const googleLogin = () => {
+  window.location.href = `${import.meta.env.VITE_BASE_URL}user/google-login`
+}
 const facebookLogin = () => {}
 const twitterLogin = () => {}
 const initThirdPartyLoginArr = [

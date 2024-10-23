@@ -7,7 +7,6 @@ import { updatePassword, updatePasswordCaptcha } from '../../api'
 import SendCaptcha from '@/components/send-captcha/SendCpatcha'
 
 type UpdatePasswordFiledType = {
-  username: string
   password: string
   confirmPassword: string
   email: string
@@ -19,7 +18,7 @@ const UpdatePassword = () => {
   const navigate = useNavigate()
   const onFinish: FormProps<UpdatePasswordFiledType>['onFinish'] =
     async values => {
-      const { password, confirmPassword, email, captcha, username } = values
+      const { password, confirmPassword, email, captcha } = values
       if (password !== confirmPassword) {
         message.error('两次密码不一致')
         return
@@ -28,7 +27,6 @@ const UpdatePassword = () => {
         string,
         Omit<UpdatePasswordFiledType, 'confirmPassword'>
       >({
-        username,
         password,
         email,
         captcha
@@ -60,42 +58,6 @@ const UpdatePassword = () => {
         autoComplete="off"
       >
         <Form.Item<UpdatePasswordFiledType>
-          label="用户名"
-          name="username"
-          rules={[
-            {
-              required: true,
-              message: '请输入用户名'
-            }
-          ]}
-        >
-          <Input placeholder="用户名" />
-        </Form.Item>
-        <Form.Item<UpdatePasswordFiledType>
-          label="密码"
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: '请输入密码'
-            }
-          ]}
-        >
-          <Input.Password placeholder="密码" />
-        </Form.Item>
-        <Form.Item<UpdatePasswordFiledType>
-          label="确认密码"
-          name="confirmPassword"
-          rules={[
-            {
-              required: true,
-              message: '请输入确认密码'
-            }
-          ]}
-        >
-          <Input.Password placeholder="确认密码" />
-        </Form.Item>
-        <Form.Item<UpdatePasswordFiledType>
           label="邮箱"
           name="email"
           rules={[
@@ -125,6 +87,30 @@ const UpdatePassword = () => {
               <SendCaptcha sendCaptcha={sendCaptcha} />
             </Col>
           </Row>
+        </Form.Item>
+        <Form.Item<UpdatePasswordFiledType>
+          label="密码"
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: '请输入密码'
+            }
+          ]}
+        >
+          <Input.Password placeholder="密码" />
+        </Form.Item>
+        <Form.Item<UpdatePasswordFiledType>
+          label="确认密码"
+          name="confirmPassword"
+          rules={[
+            {
+              required: true,
+              message: '请输入确认密码'
+            }
+          ]}
+        >
+          <Input.Password placeholder="确认密码" />
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 4, span: 20 }}>
           <Button type="primary" className="w-full" htmlType="submit">

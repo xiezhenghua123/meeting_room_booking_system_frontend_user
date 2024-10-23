@@ -70,6 +70,10 @@ const routes: RouteObject[] = [
       {
         path: 'register',
         Component: lazy(() => import('@/pages/register/Register'))
+      },
+      {
+       path: 'error',
+       Component: lazy(() => import('@/pages/error-page/ErrorPage'))
       }
     ]
   }

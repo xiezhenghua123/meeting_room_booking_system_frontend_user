@@ -167,7 +167,6 @@ const UploaderUserInfo = () => {
         <Form.Item<InfoField>
           label="昵称"
           name="nickName"
-          rules={[{ required: true, message: '请输入昵称' }]}
         >
           <Input placeholder="昵称" />
         </Form.Item>
@@ -188,7 +187,6 @@ const UploaderUserInfo = () => {
           label="手机号"
           name="phoneNumber"
           rules={[
-            { required: true, message: '请输入手机号' },
             {
               pattern: /^1[3456789]\d{9}$/,
               message: '手机号格式不正确'

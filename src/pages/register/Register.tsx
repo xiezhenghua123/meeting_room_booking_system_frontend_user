@@ -6,8 +6,6 @@ import { useCallback } from 'react'
 import SendCaptcha from '../../components/send-captcha/SendCpatcha';
 
 type RegisterFiledType = {
-  username: string
-  nickName: string
   password: string
   confirmPassword: string,
   email: string
@@ -20,15 +18,13 @@ const Register = () => {
   const navigate = useNavigate()
 
   const onFinish: FormProps<RegisterFiledType>['onFinish'] = async values => {
-    const { username, nickName, password, confirmPassword, email, captcha } =
+    const { password, confirmPassword, email, captcha } =
       values
     if (password !== confirmPassword) {
       message.error('两次密码不一致')
       return
     }
     await register<string, Omit<RegisterFiledType, 'confirmPassword'>>({
-      username,
-      nickName,
       password,
       email,
       captcha
@@ -57,30 +53,6 @@ const Register = () => {
         onFinish={onFinish}
         autoComplete="off"
       >
-        <Form.Item<RegisterFiledType>
-          label="用户名"
-          name="username"
-          rules={[
-            {
-              required: true,
-              message: '请输入用户名'
-            }
-          ]}
-        >
-          <Input placeholder="用户名" />
-        </Form.Item>
-        <Form.Item<RegisterFiledType>
-          label="昵称"
-          name="nickName"
-          rules={[
-            {
-              required: true,
-              message: '请输入昵称'
-            }
-          ]}
-        >
-          <Input placeholder="昵称" />
-        </Form.Item>
         <Form.Item<RegisterFiledType>
           label="密码"
           name="password"
@@ -112,6 +84,10 @@ const Register = () => {
             {
               required: true,
               message: '请输入邮箱'
+            },
+            {
+              type: 'email',
+              message: '请输入正确的邮箱'
             }
           ]}
         >

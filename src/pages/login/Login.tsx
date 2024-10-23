@@ -13,7 +13,7 @@ import { useState } from 'react'
 import useLanguage from '@/hooks/useLanguage'
 
 type FiledType = {
-  username: string
+  email: string
   password: string
 }
 
@@ -58,7 +58,7 @@ const Login = () => {
   const location = useNavigate()
   const onFinish: FormProps<FiledType>['onFinish'] = async values => {
     const { data } = await login<LoginResponse, FiledType>({
-      username: values.username,
+      email: values.email,
       password: values.password
     })
     localStorage.setItem('accessToken', data.accessToken)
@@ -136,7 +136,7 @@ const Login = () => {
           size="large"
         >
           <Form.Item<FiledType>
-            name="username"
+            name="email"
             label={t('usernameLabel')}
             rules={[
               {

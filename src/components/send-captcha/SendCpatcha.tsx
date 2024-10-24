@@ -3,10 +3,11 @@ import { useState } from 'react'
 
 type Props = {
   defaultTime?: number,
-  sendCaptcha: () => Promise<void>
+  sendCaptcha: () => Promise<void>,
+  className?: string
 }
 
-const SendCaptcha = ({ defaultTime = 60, sendCaptcha }: Props) => {
+const SendCaptcha = ({ defaultTime = 60, sendCaptcha, className }: Props) => {
   const [disabled, setDisabled] = useState(false)
   const [currentTime, setCurrentTime] = useState(defaultTime)
   // 倒计时 使用requestAnimationFrame
@@ -32,7 +33,7 @@ const SendCaptcha = ({ defaultTime = 60, sendCaptcha }: Props) => {
 
   return (
     <Button
-      className="w-full"
+      className={`w-full ${className}`}
       disabled={disabled}
       type="primary"
       onClick={countDown}

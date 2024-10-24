@@ -144,12 +144,17 @@ const Login = () => {
                 message: t('inputRequired', {
                   field: t('usernamePlaceholder')
                 })
+              },
+              {
+                type: 'email',
+                message: t('inputValid', {field: t('usernamePlaceholder')})
               }
             ]}
           >
             <Input
               className="mt-0.5rem"
               placeholder={t('usernamePlaceholder')}
+              allowClear
             />
           </Form.Item>
           <Form.Item<FiledType>
@@ -168,6 +173,7 @@ const Login = () => {
             <Input.Password
               className="mt-0.5rem"
               placeholder={t('passwordPlaceholder')}
+              allowClear
             />
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 4, span: 20 }}>

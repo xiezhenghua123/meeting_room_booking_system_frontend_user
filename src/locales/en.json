@@ -15,8 +15,13 @@
   "inputRequired": "Please enter {{field}}",
   "loginWithFacebook": "Sign in with Facebook",
   "loginWithTwitter": "Sign in with Twitter",
+  "inputValid": "Please enter a valid {{field}}",
+  "confirmPassword": "Confirm Password",
+  "confirmPasswordLabel": "Enter your password again",
+  "captcha": "Captcha",
+  "hasAccount": "Already have an account?",
   "language": "language",
   "404": "404",
-  "We’re working on it!": "We’re working on it!",
+  "We’re working on it!": "We're working on it!",
   "Go Home": "Go Home"
 }
